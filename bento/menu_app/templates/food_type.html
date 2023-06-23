@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Appetizers</h1>
+    <ul>
+      {% for food in appetizers %}
+      <a href="http://127.0.0.1:8000/menu_item/{{ forloop.counter0 }}">
+        <li>{{ food.name }} {{ food.price }}</li>
+        <li>{{ food.japanese_name }}</li>
+        <li>{{ food.description }}</li>
+      </a>
+      {% endfor %}
+
+      <h1>Main Course</h1>
+
+      {% for food in main_course %}
+      <a href="http://127.0.0.1:8000/menu_item/{{ forloop.counter0 }}">
+        <li>{{ food.name }} {{ food.price }}</li>
+        <li>{{ food.japanese_name }}</li>
+        <li>{{ food.description }}</li>
+      </a>
+      {% endfor %}
+
+      <h1>Desserts</h1>
+
+      {% for food in desserts %}
+      <a href="http://127.0.0.1:8000/menu_item/{{ forloop.counter0 }}">
+        <li>{{ food.name }} {{ food.price }}</li>
+        <li>{{ food.japanese_name }}</li>
+        <li>{{ food.description }}</li>
+      </a>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
