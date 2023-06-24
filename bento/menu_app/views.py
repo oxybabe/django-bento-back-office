@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 
 from menu_app.models import Appetizer, MainCourse, Dessert
@@ -122,14 +122,24 @@ menu_list=[
     ]
 def home(request):
     return render(request, 'home.html')
-
-
 def menu(request):
-    return render(request, 'menu.html', {'menu_data':menu_list} )
+  all_appetizers = Appetizer.objects.all()
+  all_main_course = MainCourse.objects.all()
+  all_desserts = Dessert.objects.all()
+  return render(request, 'menu.html', {'appetizers': all_appetizers, 'main_course': all_main_course, 'desserts': all_desserts})
 
 def menu_item(request, index):
   item = menu_list[index]
-  return render(request, 'menu_item.html', {'menu_item' : item} )
+  appetizer = Appetizer.objects.filter(type="main_course")
+  return render(request, 'menu_item.html', {"menu_item" : item, 'appetizer': appetizer})
+
+
+# def menu(request):
+#     return render(request, 'menu.html', {'menu_data':menu_list} )
+
+# def menu_item(request, index):
+#   item = menu_list[index]
+#   return render(request, 'menu_item.html', {'menu_item' : item} )
 
 def seed(request):
     appetizers = [
@@ -158,4 +168,12 @@ def seed(request):
     ]
     Dessert.objects.bulk_create(desserts)
     return render(request, 'food_type.html', {'appetizers': appetizers, 'main_course': main_course, 'desserts': desserts})
-    
+
+
+def delete_menu_item(request):
+  menu_item = get_object_or_404(Appetizer,  )
+  if request.method == 'DELETE':
+    menu_item.delete()
+
+def edit_menu(request):
+  menu_item 

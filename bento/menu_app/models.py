@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Appetizer(models.Model):
+    type = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     japanese_name = models.CharField(max_length=100)
     price = models.IntegerField(max_length=10)
@@ -15,6 +16,7 @@ class Appetizer(models.Model):
 
     
 class MainCourse(models.Model):
+    type = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     japanese_name = models.CharField(max_length=100)
     price = models.IntegerField(max_length=10)
@@ -23,6 +25,7 @@ class MainCourse(models.Model):
         return self.name
     
 class Dessert(models.Model):
+    type = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     japanese_name = models.CharField(max_length=100)
     price = models.IntegerField(max_length=10)
