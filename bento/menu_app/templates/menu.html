@@ -9,8 +9,8 @@
     <h1>Menu</h1>
     <ul>
       {% for food in menu_data %}
-      <a href="/menu_item/{{ forloop.counter0 }}">
-        <li>{{ food.name }} {{ food.price }}</li>
+      <a style="text-decoration: none" href="/menu_item/{{ forloop.counter0 }}">
+        <li>{{ food.name }} - ${{ food.price }}</li>
       </a>
       {% endfor %}
     </ul>

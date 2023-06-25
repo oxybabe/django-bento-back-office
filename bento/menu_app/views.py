@@ -1,7 +1,7 @@
+
 from django.shortcuts import get_object_or_404, render
-
-
 from menu_app.models import Appetizer, MainCourse, Dessert
+
 
 
 # Create your views here.
@@ -123,30 +123,49 @@ menu_list=[
 def home(request):
     return render(request, 'home.html')
 def menu(request):
+ 
   all_appetizers = Appetizer.objects.all()
   all_main_course = MainCourse.objects.all()
   all_desserts = Dessert.objects.all()
-  return render(request, 'menu.html', {'appetizers': all_appetizers, 'main_course': all_main_course, 'desserts': all_desserts})
+  print("Main Course:", all_main_course )
+  
+  return render(request, 'menu.html', {'menu_data':menu_list, 'appetizers': all_appetizers, 'main_course': all_main_course, 'desserts': all_desserts})
 
-def menu_item(request, index):
-  item = menu_list[index]
-  appetizer = Appetizer.objects.filter(type="main_course")
-  return render(request, 'menu_item.html', {"menu_item" : item, 'appetizer': appetizer})
+# def menu_item(request, index):
+#   item = menu_list[index]
+#   appetizer = Appetizer.objects.filter(type="appetizer")
+#   main_course = MainCourse.objects.filter(type="main course")
+#   dessert = Dessert.objects.filter(type="dessert")
+#   return render(request, 'menu_item.html', {"menu_item" : item, 'appetizer': appetizer, 'main_course': main_course, 'desserts':dessert})
 
 
 # def menu(request):
 #     return render(request, 'menu.html', {'menu_data':menu_list} )
 
+
+
 # def menu_item(request, index):
 #   item = menu_list[index]
-#   return render(request, 'menu_item.html', {'menu_item' : item} )
+#   appetizer = Appetizer.objects.filter(type="appetizer")
+#   main_course = MainCourse.objects.filter(type="main course")
+#   dessert = Dessert.objects.filter(type="dessert")
+#   return render(request, 'menu_item.html', {"menu_item" : item, 'appetizer': appetizer, 'main_course': main_course, 'desserts':dessert})
+
+
+# def menu(request):
+#     return render(request, 'menu.html', {'menu_data':menu_list} )
+
+def menu_item(request, index):
+  item = menu_list[index]
+  return render(request, 'menu_item.html', {'menu_item' : item} )
+
 
 def seed(request):
     appetizers = [
-    Appetizer(name="Gyoza", japanese_name="野菜天ぷら", price= 599, description="Delicious pan-fried dumplings filled with seasoned ground pork and vegetables. Served with a tangy soy dipping sauce."),
-    Appetizer(name="Edamame", japanese_name="枝豆", price= 599, description="Steamed young soybeans lightly seasoned with sea salt. A classic and healthy Japanese appetizer."), 
-    Appetizer(name="Agedashi Tofu", japanese_name="揚げ出し豆腐", price= 599, description="Deep-fried tofu served in a flavorful dashi broth with grated daikon, green onions, and bonito flakes."),
-    Appetizer(name="Takoyaki", japanese_name="たこ焼き", price= 599, description="Savory octopus-filled batter balls cooked to perfection and topped with takoyaki sauce, mayonnaise, and bonito flakes."),                           
+    Appetizer(name="Gyoza", japanese_name="野菜天ぷら", price= 5.99, description="Delicious pan-fried dumplings filled with seasoned ground pork and vegetables. Served with a tangy soy dipping sauce."),
+    Appetizer(name="Edamame", japanese_name="枝豆", price= 5.99, description="Steamed young soybeans lightly seasoned with sea salt. A classic and healthy Japanese appetizer."), 
+    Appetizer(name="Agedashi Tofu", japanese_name="揚げ出し豆腐", price= 5.99, description="Deep-fried tofu served in a flavorful dashi broth with grated daikon, green onions, and bonito flakes."),
+    Appetizer(name="Takoyaki", japanese_name="たこ焼き", price= 5.99, description="Savory octopus-filled batter balls cooked to perfection and topped with takoyaki sauce, mayonnaise, and bonito flakes."),                           
 ]
     Appetizer.objects.bulk_create(appetizers)
       
@@ -167,7 +186,9 @@ def seed(request):
     Dessert(name="Dorayaki", japanese_name="どら焼き", price= 5.99, description="Sweet red bean paste sandwiched between two fluffy pancakes. A popular traditional Japanese dessert.") 
     ]
     Dessert.objects.bulk_create(desserts)
+    print("Main Course:", main_course )
     return render(request, 'food_type.html', {'appetizers': appetizers, 'main_course': main_course, 'desserts': desserts})
+    
 
 
 def delete_menu_item(request):
@@ -177,3 +198,4 @@ def delete_menu_item(request):
 
 def edit_menu(request):
   menu_item 
+
