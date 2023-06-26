@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from menu_app.views import home, menu, menu_item, seed, delete_menu_item
+from menu_app.views import home, menu, menu_item, seed, appetizer_item, main_item, dessert_item
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,10 @@ urlpatterns = [
     path('menu/', menu),
     path('menu_item/<int:index>', menu_item, name="item"),
     path('seed/', seed),
-    path('backoffice/', delete_menu_item )
+    path('appetizer/<int:appetizer_item_id>', appetizer_item, name="appetizer_item"), 
+    path('main/<int:main_item_id>', main_item, name="main_item"), 
+    path('dessert/<int:dessert_item_id>', dessert_item, name="dessert_item")
+    
+    # path('backoffice/', backoffice)
+    # path('backoffice/', delete_menu_item )
 ]

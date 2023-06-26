@@ -7,12 +7,48 @@
   </head>
   <body>
     <h1>Menu</h1>
+    <!-- <h2>Appetizers</h2>
+    <ul>
+      {% for food in appetizers %}
+      <a style="text-decoration: none" href="/menu_item/{{ forloop.counter }}">
+        <b>{{ food.name }} ${{ food.price }}</b>
+        <li>{{ food.japanese_name }}</li>
+        <li>{{ food.description }}</li>
+      </a>
+      {% endfor %}
+    </ul>
+
+    <h2>Main Course</h2>
+    <ul>
+      {% for food in main_course %}
+      <a style="text-decoration: none" href="/menu_item/{{ forloop.counter }}">
+        <b>{{ food.name }} ${{ food.price }}</b>
+        <li>{{ food.japanese_name }}</li>
+        <li>{{ food.description }}</li>
+      </a>
+      {% endfor %}
+    </ul>
+
+    <h2>Desserts</h2>
+    <ul>
+      {% for food in desserts %}
+      <a style="text-decoration: none" href="/menu_item/{{ forloop.counter }}">
+        <b>{{ food.name }} ${{ food.price }}</b>
+        <li>{{ food.japanese_name }}</li>
+        <li>{{ food.description }}</li>
+      </a>
+      {% endfor %}
+    </ul> -->
+
     <ul>
       {% for food in menu_data %}
       <a style="text-decoration: none" href="/menu_item/{{ forloop.counter0 }}">
         <li>{{ food.name }} - ${{ food.price }}</li>
+        <li>{{ food.type }}</li>
       </a>
       {% endfor %}
     </ul>
+
+    <!-- </a> -->
   </body>
 </html>

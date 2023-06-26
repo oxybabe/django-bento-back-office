@@ -9,33 +9,39 @@
     <h1>Menu</h1>
     <h2>Appetizers</h2>
     <ul>
-      {% for food in appetizers %}
-      <a style="text-decoration: none" href="/menu_item/{{ forloop.counter0 }}">
-        <b>{{ food.name }} ${{ food.price }}</b>
-        <li>{{ food.japanese_name }}</li>
-        <li>{{ food.description }}</li>
+      {% for appetizer in appetizers %}
+      <a
+        style="text-decoration: none"
+        href="{% url 'appetizer_item' appetizer.id %}"
+      >
+        <b>{{ appetizer.name }} {{ appetizer.price }}</b>
+        <li>{{ appetizer.japanese_name }}</li>
+        <li>{{ appetizer.description }}</li>
       </a>
       {% endfor %}
     </ul>
 
     <h2>Main Course</h2>
     <ul>
-      {% for food in main_course %}
-      <a style="text-decoration: none" href="/menu_item/{{ forloop.counter0 }}">
-        <b>{{ food.name }} ${{ food.price }}</b>
-        <li>{{ food.japanese_name }}</li>
-        <li>{{ food.description }}</li>
+      {% for main in main_course %}
+      <a style="text-decoration: none" href="{% url 'main_item' main.id %}">
+        <b>{{ main.name }} ${{ main.price }}</b>
+        <li>{{ main.japanese_name }}</li>
+        <li>{{ main.description }}</li>
       </a>
       {% endfor %}
     </ul>
 
     <h2>Desserts</h2>
     <ul>
-      {% for food in desserts %}
-      <a style="text-decoration: none" href="/menu_item/{{ forloop.counter0 }}">
-        <b>{{ food.name }} ${{ food.price }}</b>
-        <li>{{ food.japanese_name }}</li>
-        <li>{{ food.description }}</li>
+      {% for dessert in desserts %}
+      <a
+        style="text-decoration: none"
+        href="{% url 'dessert_item' dessert.id %}"
+      >
+        <b>{{ dessert.name }} ${{ dessert.price }}</b>
+        <li>{{ dessert.japanese_name }}</li>
+        <li>{{ dessert.description }}</li>
       </a>
       {% endfor %}
     </ul>
