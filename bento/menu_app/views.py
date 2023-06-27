@@ -1,8 +1,9 @@
 
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template import RequestContext
+from menu_app.forms import AppetizerForm, MainCourseForm 
 from menu_app.models import Appetizer, MainCourse, Dessert
-# from django.contrib.auth.models import Appetizer
 
 
 
@@ -126,32 +127,9 @@ menu_list=[
 def home(request):
     return render(request, 'home.html')
   
-# def menu(request):
-#   all_appetizers = Appetizer.objects.all()
-#   all_main_course = MainCourse.objects.all()
-#   all_desserts = Dessert.objects.all()
-#   return render(request, 'menu.html', {'appetizers': all_appetizers, 'main_course': all_main_course, 'desserts': all_desserts})
-
-# def menu_item(request, index):
-#   item = menu_list[index]
-#   appetizer = Appetizer.objects.filter(type="appetizer")
-#   main_course = MainCourse.objects.filter(type="main course")
-#   dessert = Dessert.objects.filter(type="dessert")
-#   return render(request, 'menu_item.html', {"menu_item" : item, 'appetizer': appetizer, 'main_course': main_course, 'desserts':dessert})
-
 
 def menu(request):
     return render(request, 'menu.html', {'menu_data':menu_list} )
-
-
-
-# def menu_item(request, index):
-  
-#   all_appetizers = Appetizer.objects.filter(type="appetizer")
-#   all_main_course = MainCourse.objects.filter(type="main course")
-#   all_desserts = Dessert.objects.filter(type="dessert")
-#   context = {'menu_item':type}
-#   return render(request, 'menu_item.html', {"menu_item" : context, 'appetizer': all_appetizers, 'main_course': all_main_course, 'desserts':all_desserts})
 
 # def backoffice(request, index):
 #     appetizers = Appetizer.objects.all()
@@ -162,16 +140,12 @@ def menu(request):
 #         'main_courses': main_courses,
 #         'desserts': desserts,
 #     }
-#     return render(request, 'backoffice.html', context)
+#     return render(request, 'admin.html', context)
   
-
-
-# def menu(request):
-#     return render(request, 'menu.html', {'menu_data':menu_list} )
 
 def menu_item(request, index):
   item = menu_list[index]
-  return render(request, 'menu_item.html', {'menu_item' : item} )
+  return render(request, 'menu_item.html', {'item' : item} )
 
 def appetizer_item(request, appetizer_item_id):
   appetizer_item = get_object_or_404(Appetizer, id=appetizer_item_id )
@@ -184,6 +158,22 @@ def main_item(request, main_item_id):
 def dessert_item(request, dessert_item_id):
   dessert_item = get_object_or_404(Dessert, id=dessert_item_id )
   return render(request, 'menu_item.html', {'item': dessert_item})
+
+
+def appetizer_record(request):
+  appetizer_list = Appetizer.objects.all()
+  return render(request, 'admin.html', {'appetizer_list': appetizer_list})
+
+def main_record(request):
+  main_course_list = MainCourse.objects.all()
+  return render(request, 'admin.html', {'main_list': main_course_list})
+
+def dessert_record(request):
+  dessert_list = Dessert.objects.all()
+  return render(request, 'admin.html', {'dessert_list': dessert_list})
+
+
+  
 
 
 
@@ -226,26 +216,65 @@ def seed(request):
   all_desserts = Dessert.objects.all()
   return render(request, 'food_type.html', {'appetizers': all_appetizers, 'main_course': all_main_course, 'desserts': all_desserts})
     
-# def appetizer_data(request):
-#   appetizers = Appetizer.objects.all()
-#   return appetizers
+# def create_appetizer(request):
+#   form = AppetizerForm(request.POST or None)
+#   if request.method == 'POST' and form.is_valid():
+#     form.save()
+#     print(request)
+#     return render(request, 'order.html')
+  # return HttpResponse("This is the create_appetizer view for GET requests.")
 
-# def main_course_data(request):
-#   main_course = MainCourse.objects.all()
-#   return main_course
+# def create_appetizer(request):
+#   if request.method == "POST":
+#     form = AppetizerForm(request.POST)
+#     if form.is_valid():
+#       return HttpResponseRedirect("this is the create_appetizer view for get requests")
+#     else: form = AppetizerForm()
+#     return render(request, "order.html", {"form": form})
+  
+# def create_main_course(request):
+#   form = MainCourseForm(request.POST or None)
+#   if request.method == 'POST' and form.is_valid():
+#     form.save()
+#     return render(request, 'order.html', {'form':form})  
+  
+# def create_dessert(request):
+#   form = DessertForm(request.POST or None)
+#   if request.method == 'POST' and form.is_valid():
+#     form.save()
+#     return render(request, 'order.html', {'form':form})
 
-# def desserts():
-#   desserts = Dessert.objects.all()
-#   return desserts
+# def edit_appetizer(request, appetizer_id):
+#   appetizer = get_object_or_404(Appetizer, id=appetizer_id)  
+#   if request.method == 'PUT':
+#     form = AppetizerForm(request.PUT, instance=appetizer)
+#     if form.is_valid():
+#       form.save()
+#   else:
+#     form = AppetizerForm(instance=appetizer)
+#   return render(request, 'order.html', context_instance=RequestContext(request))
 
-
-
-# def appetizer_item(request, appetizer_id):
-#   appetizer_item = get_object_or_404(Appetizer, appetizer_id )
-#   return render(request, 'food_type.html', {'appetizers': appetizer_item})
-
-
-
-# def edit_menu(request):
-#   menu_item 
-
+def delete_appetizer(request, appetizer_id):
+  appetizer = get_object_or_404(Appetizer, id=appetizer_id)
+  if request.method == 'POST':
+    appetizer.delete()
+    return render(request, 'appetizer_list.html', {'appetizer':appetizer})
+  else:
+        return HttpResponseNotAllowed(['POST'])
+      
+def delete_main_course(request, main_course_id):
+  main_course = get_object_or_404(MainCourse, id=main_course_id)
+  if request.method == 'POST':
+    main_course.delete()
+    return render(request, 'appetizer_list.html', {'main_course':main_course})
+  else:
+        return HttpResponseNotAllowed(['POST'])
+      
+def delete_desserts(request, desserts_id):
+  dessert = get_object_or_404(Dessert, id=desserts_id)
+  if request.method == 'POST':
+    dessert.delete()
+    return render(request, 'appetizer_list.html', {'dessert':dessert})
+  else:
+        return HttpResponseNotAllowed(['POST'])
+#https://stackoverflow.com/questions/46003056/how-to-make-delete-button-in-django      

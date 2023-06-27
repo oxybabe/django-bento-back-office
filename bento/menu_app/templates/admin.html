@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Appetizers</h1>
+    <ul>
+      {% for appetizer in appetizer_list %}
+      <a
+        style="text-decoration: none"
+        href="{% url 'appetizer_item' appetizer.id %}"
+      >
+        <b>{{ appetizer.name }} ${{ appetizer.price }}</b>
+        <li>{{ appetizer.japanese_name }}</li>
+        <li>{{ appetizer.description }}</li>
+      </a>
+      <form
+        action="{% url 'menu_app:delete_appetizer' appetizer.id %}"
+        method="POST"
+      >
+        {% csrf_token %}
+        <button type="submit">Delete Appetizer</button>
+      </form>
+
+      {% endfor %}
+    </ul>
+    <h2>Main Course</h2>
+    <ul>
+      {% for main in main_list %}
+      <a style="text-decoration: none" href="{% url 'main_item' main.id %}">
+        <b>{{ main.name }} ${{ main.price }}</b>
+        <li>{{ main.japanese_name }}</li>
+        <li>{{ main.description }}</li>
+      </a>
+      <form
+        action="{% url 'menu_app:delete_main_course' main.id %}"
+        method="POST"
+      >
+        {% csrf_token %}
+        <button type="submit">Delete MainCourse</button>
+      </form>
+      {% endfor %}
+    </ul>
+    <h2>Desserts</h2>
+    <ul>
+      {% for dessert in dessert_list %}
+      <a
+        style="text-decoration: none"
+        href="{% url 'dessert_item' dessert.id %}"
+      >
+        <b>{{ dessert.name }} ${{ dessert.price }}</b>
+        <li>{{ dessert.japanese_name }}</li>
+        <li>{{ dessert.description }}</li>
+      </a>
+      <form
+        action="{% url 'menu_app:delete_dessert' dessert.id %}"
+        method="POST"
+      >
+        {% csrf_token %}
+        <button type="submit">Delete Dessert</button>
+      </form>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
