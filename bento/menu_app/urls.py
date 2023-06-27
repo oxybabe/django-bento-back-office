@@ -12,8 +12,8 @@ urlpatterns = [
     path('main_course_list/', main_record),
     path('dessert_list/', dessert_record),
     path(r'^delete/<int:appetizer_id>/$', delete_appetizer, name='delete_appetizer'),
-    path(r'^delete/<int:main_course_id>/$', delete_main_course, name='delete_main_course'),
-    path(r'^delete/<int:delete_id>/$', delete_desserts, name='delete_main_course')
+    path(r'^main_course/delete/<int:main_id>/$', delete_main_course, name='delete_main_course'),
+    path(r'^dessert/delete/<int:dessert_id>/$', delete_desserts, name='delete_desserts')
 
 ]
     # path('appetizer/create', create_appetizer, name='create_appetizer')

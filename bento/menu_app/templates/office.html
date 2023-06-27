@@ -29,7 +29,7 @@
     </ul>
     <h2>Main Course</h2>
     <ul>
-      {% for main in main_list %}
+      {% for main in main_course_list %}
       <a style="text-decoration: none" href="{% url 'main_item' main.id %}">
         <b>{{ main.name }} ${{ main.price }}</b>
         <li>{{ main.japanese_name }}</li>
@@ -40,7 +40,7 @@
         method="POST"
       >
         {% csrf_token %}
-        <button type="submit">Delete MainCourse</button>
+        <button type="submit">Delete Main Course</button>
       </form>
       {% endfor %}
     </ul>
@@ -56,7 +56,7 @@
         <li>{{ dessert.description }}</li>
       </a>
       <form
-        action="{% url 'menu_app:delete_dessert' dessert.id %}"
+        action="{% url 'menu_app:delete_desserts' dessert.id %}"
         method="POST"
       >
         {% csrf_token %}

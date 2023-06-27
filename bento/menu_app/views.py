@@ -162,15 +162,15 @@ def dessert_item(request, dessert_item_id):
 
 def appetizer_record(request):
   appetizer_list = Appetizer.objects.all()
-  return render(request, 'admin.html', {'appetizer_list': appetizer_list})
+  return render(request, 'office.html', {'appetizer_list': appetizer_list})
 
 def main_record(request):
   main_course_list = MainCourse.objects.all()
-  return render(request, 'admin.html', {'main_list': main_course_list})
+  return render(request, 'office.html', {'main_course_list': main_course_list})
 
 def dessert_record(request):
   dessert_list = Dessert.objects.all()
-  return render(request, 'admin.html', {'dessert_list': dessert_list})
+  return render(request, 'office.html', {'dessert_list': dessert_list})
 
 
   
@@ -258,23 +258,23 @@ def delete_appetizer(request, appetizer_id):
   appetizer = get_object_or_404(Appetizer, id=appetizer_id)
   if request.method == 'POST':
     appetizer.delete()
-    return render(request, 'appetizer_list.html', {'appetizer':appetizer})
+    return render(request, 'office.html', {'appetizer':appetizer})
   else:
         return HttpResponseNotAllowed(['POST'])
       
-def delete_main_course(request, main_course_id):
-  main_course = get_object_or_404(MainCourse, id=main_course_id)
+def delete_main_course(request, main_id):
+  main_course = get_object_or_404(MainCourse, id=main_id)
   if request.method == 'POST':
     main_course.delete()
-    return render(request, 'appetizer_list.html', {'main_course':main_course})
+    return render(request, 'office.html', {'main_course':main_course})
   else:
         return HttpResponseNotAllowed(['POST'])
       
-def delete_desserts(request, desserts_id):
-  dessert = get_object_or_404(Dessert, id=desserts_id)
+def delete_desserts(request, dessert_id):
+  dessert = get_object_or_404(Dessert, id=dessert_id)
   if request.method == 'POST':
     dessert.delete()
-    return render(request, 'appetizer_list.html', {'dessert':dessert})
+    return render(request, 'office.html', {'dessert':dessert})
   else:
         return HttpResponseNotAllowed(['POST'])
 #https://stackoverflow.com/questions/46003056/how-to-make-delete-button-in-django      
