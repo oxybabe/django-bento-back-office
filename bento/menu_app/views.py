@@ -1,5 +1,5 @@
 
-from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
+from django.http import HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import RequestContext
 from menu_app.forms import AppetizerForm, DessertForm, MainCourseForm 
@@ -224,25 +224,7 @@ def seed(request):
 #     return render(request, 'order.html')
   # return HttpResponse("This is the create_appetizer view for GET requests.")
 
-# def create_appetizer(request):
-#   if request.method == "POST":
-#     form = AppetizerForm(request.POST)
-#     if form.is_valid():
-#       return HttpResponseRedirect("this is the create_appetizer view for get requests")
-#     else: form = AppetizerForm()
-#     return render(request, "order.html", {"form": form})
-  
-# def create_main_course(request):
-#   form = MainCourseForm(request.POST or None)
-#   if request.method == 'POST' and form.is_valid():
-#     form.save()
-#     return render(request, 'order.html', {'form':form})  
-  
-# def create_dessert(request):
-#   form = DessertForm(request.POST or None)
-#   if request.method == 'POST' and form.is_valid():
-#     form.save()
-#     return render(request, 'order.html', {'form':form})
+
 
 
 def delete_appetizer(request, appetizer_id):
@@ -311,5 +293,61 @@ def update_dessert(request, dessert_id):
   context = {
     'form': form,
     'dessert_list': Dessert.objects.all(),
+  }
+  return render(request, 'office.html', context )
+
+# def create_appetizer(request):
+#   if request.method == "POST":
+#     form = AppetizerForm(request.POST)
+#     if form.is_valid():
+#       form.save()
+    
+#     return redirect('menu_app:appetizer_list')
+#   else:
+#     form = AppetizerForm
+#     return render(request, "office.html", {"form": form})
+  
+def create_appetizer(request):
+  if request.method == 'POST':
+    form = AppetizerForm(request.POST)
+    if form.is_valid():
+      form.save()
+      return redirect('menu_app:appetizer_list')
+    
+  else:
+    form = AppetizerForm()
+  context = {
+    'form': form,
+   
+  }
+  return render(request, 'office.html', context )
+  
+def create_main_course(request):
+  if request.method == 'POST':
+    form = MainCourseForm(request.POST)
+    if form.is_valid():
+      form.save()
+      return redirect('main_course_list')
+    
+  else:
+    form = MainCourseForm()
+  context = {
+    'form': form,
+   
+  }
+  return render(request, 'office.html', context )
+
+def create_dessert(request):
+  if request.method == 'POST':
+    form = DessertForm(request.POST)
+    if form.is_valid():
+      form.save()
+      return redirect('dessert_list')
+    
+  else:
+    form = DessertForm()
+  context = {
+    'form': form,
+   
   }
   return render(request, 'office.html', context )

@@ -36,6 +36,11 @@
       </li>
 
       {% endfor %}
+      <form action="{% url 'menu_app:create_appetizer'  %}" method="POST">
+        {% csrf_token %} {{ form.as_p }}
+        <input type="hidden" name="_method" value="POST" />
+        <button type="submit">Create Appetizer</button>
+      </form>
     </ul>
     <h2>Main Course</h2>
     <ul>
@@ -61,6 +66,11 @@
         <button type="submit">Update Main Course</button>
       </form>
       {% endfor %}
+      <form action="{% url 'menu_app:create_main_course'  %}" method="POST">
+        {% csrf_token %} {{ form.as_p }}
+        <input type="hidden" name="_method" value="POST" />
+        <button type="submit">Create Main Course</button>
+      </form>
     </ul>
     <h2>Desserts</h2>
     <ul>
@@ -89,6 +99,11 @@
         <button type="submit">Update Dessert</button>
       </form>
       {% endfor %}
+      <form action="{% url 'menu_app:create_dessert'  %}" method="POST">
+        {% csrf_token %} {{ form.as_p }}
+        <input type="hidden" name="_method" value="POST" />
+        <button type="submit">Create Dessert</button>
+      </form>
     </ul>
   </body>
 </html>
