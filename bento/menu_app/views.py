@@ -2,7 +2,7 @@
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import RequestContext
-from menu_app.forms import AppetizerForm, MainCourseForm 
+from menu_app.forms import AppetizerForm, DessertForm, MainCourseForm 
 from menu_app.models import Appetizer, MainCourse, Dessert
 
 
@@ -272,7 +272,7 @@ def delete_desserts(request, dessert_id):
 
 def update_appetizer(request, appetizer_id):
   appetizer = get_object_or_404(Appetizer, id=appetizer_id)  
-  if request.method == 'POSTT':
+  if request.method == 'POST':
     form = AppetizerForm(request.POST, instance=appetizer)
     if form.is_valid():
       form.save()
@@ -286,4 +286,30 @@ def update_appetizer(request, appetizer_id):
   }
   return render(request, 'office.html', context )
 
+def update_main_course(request, main_id):
+  main_course = get_object_or_404(MainCourse, id=main_id)  
+  if request.method == 'POST':
+    form = MainCourseForm(request.POST, instance=main_course)
+    if form.is_valid():
+      form.save()  
+  else:
+    form = MainCourseForm(instance=main_course)
+  context = {
+    'form': form,
+    'main_course_list': MainCourse.objects.all(),
+  }
+  return render(request, 'office.html', context )
 
+def update_dessert(request, dessert_id):
+  dessert = get_object_or_404(Dessert, id=dessert_id)  
+  if request.method == 'POST':
+    form = DessertForm(request.POST, instance=dessert)
+    if form.is_valid():
+      form.save()  
+  else:
+    form = DessertForm(instance=dessert)
+  context = {
+    'form': form,
+    'dessert_list': Dessert.objects.all(),
+  }
+  return render(request, 'office.html', context )

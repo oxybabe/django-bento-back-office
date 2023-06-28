@@ -52,6 +52,14 @@
         {% csrf_token %}
         <button type="submit">Delete Main Course</button>
       </form>
+      <form
+        action="{% url 'menu_app:update_main_course' main.id %}"
+        method="POST"
+      >
+        {% csrf_token %} {{ form.as_p }}
+        <input type="hidden" name="_method" value="PUT" />
+        <button type="submit">Update Main Course</button>
+      </form>
       {% endfor %}
     </ul>
     <h2>Desserts</h2>
@@ -71,6 +79,14 @@
       >
         {% csrf_token %}
         <button type="submit">Delete Dessert</button>
+      </form>
+      <form
+        action="{% url 'menu_app:update_dessert' dessert.id %}"
+        method="POST"
+      >
+        {% csrf_token %} {{ form.as_p }}
+        <input type="hidden" name="_method" value="PUT" />
+        <button type="submit">Update Dessert</button>
       </form>
       {% endfor %}
     </ul>
