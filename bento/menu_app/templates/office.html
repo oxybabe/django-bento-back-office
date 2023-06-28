@@ -9,21 +9,31 @@
     <h1>Appetizers</h1>
     <ul>
       {% for appetizer in appetizer_list %}
-      <a
-        style="text-decoration: none"
-        href="{% url 'appetizer_item' appetizer.id %}"
-      >
-        <b>{{ appetizer.name }} ${{ appetizer.price }}</b>
-        <li>{{ appetizer.japanese_name }}</li>
-        <li>{{ appetizer.description }}</li>
-      </a>
-      <form
-        action="{% url 'menu_app:delete_appetizer' appetizer.id %}"
-        method="POST"
-      >
-        {% csrf_token %}
-        <button type="submit">Delete Appetizer</button>
-      </form>
+      <li>
+        <a
+          style="text-decoration: none"
+          href="{% url 'appetizer_item' appetizer.id %}"
+        >
+          <b>{{ appetizer.name }} ${{ appetizer.price }}</b>
+          <li>{{ appetizer.japanese_name }}</li>
+          <li>{{ appetizer.description }}</li>
+        </a>
+        <form
+          action="{% url 'menu_app:delete_appetizer' appetizer.id %}"
+          method="POST"
+        >
+          {% csrf_token %}
+          <button type="submit">Delete Appetizer</button>
+        </form>
+        <form
+          action="{% url 'menu_app:update_appetizer' appetizer.id %}"
+          method="POST"
+        >
+          {% csrf_token %} {{ form.as_p }}
+          <input type="hidden" name="_method" value="PUT" />
+          <button type="submit">Update Appetizer</button>
+        </form>
+      </li>
 
       {% endfor %}
     </ul>

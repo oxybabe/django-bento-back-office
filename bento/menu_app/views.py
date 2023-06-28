@@ -244,15 +244,6 @@ def seed(request):
 #     form.save()
 #     return render(request, 'order.html', {'form':form})
 
-# def edit_appetizer(request, appetizer_id):
-#   appetizer = get_object_or_404(Appetizer, id=appetizer_id)  
-#   if request.method == 'PUT':
-#     form = AppetizerForm(request.PUT, instance=appetizer)
-#     if form.is_valid():
-#       form.save()
-#   else:
-#     form = AppetizerForm(instance=appetizer)
-#   return render(request, 'order.html', context_instance=RequestContext(request))
 
 def delete_appetizer(request, appetizer_id):
   appetizer = get_object_or_404(Appetizer, id=appetizer_id)
@@ -278,3 +269,21 @@ def delete_desserts(request, dessert_id):
   else:
         return HttpResponseNotAllowed(['POST'])
 #https://stackoverflow.com/questions/46003056/how-to-make-delete-button-in-django      
+
+def update_appetizer(request, appetizer_id):
+  appetizer = get_object_or_404(Appetizer, id=appetizer_id)  
+  if request.method == 'POSTT':
+    form = AppetizerForm(request.POST, instance=appetizer)
+    if form.is_valid():
+      form.save()
+      # return redirect('backoffice/appetizer_list')
+    
+  else:
+    form = AppetizerForm(instance=appetizer)
+  context = {
+    'form': form,
+    'appetizer_list': Appetizer.objects.all(),
+  }
+  return render(request, 'office.html', context )
+
+
